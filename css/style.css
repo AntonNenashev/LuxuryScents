@@ -134,7 +134,7 @@ body {
 
 /* Герой секция */
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/hero-image-4.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/hero-image.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

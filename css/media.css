@@ -110,6 +110,40 @@
         width: 90%;
         padding: 20px;
     }
+
+    .burger-menu {
+        display: flex;
+    }
+
+    .header-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--light-text);
+        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 1000;
+        padding: 80px 20px 20px;
+    }
+
+    .header-nav.active {
+        right: 0;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-item {
+        margin: 0;
+    }
+
+    .nav-link {
+        font-size: 18px;
+    }
 }
 
 /* Малые мобильные устройства (480px и меньше) */
@@ -159,6 +193,27 @@
     .cart-item-quantity {
         width: 100%;
         justify-content: space-between;
+    }
+
+    .header-nav {
+        width: 85%;
+    }
+
+    .burger-menu {
+        width: 25px;
+        height: 18px;
+    }
+
+    .burger-menu span {
+        height: 2px;
+    }
+
+    .burger-menu.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .burger-menu.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 }
 

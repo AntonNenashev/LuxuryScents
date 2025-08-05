@@ -1,0 +1,36 @@
+# Автоматическая обработка текстовых файлов
+* text=auto
+
+# Бинарные файлы
+*.svg binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Специфичные настройки
+.gitattributes text eol=lf
+.gitignore text eol=lf
+*.php text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+
+# Исключения
+/vendor/** -text
+
+# Для Docker-файлов
+Dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+
+# Для Python (если используется)
+*.py text eol=lf

@@ -1,0 +1,28 @@
+# Файлы окружения
+.env
+.env.*
+!.env.example
+
+# Системные файлы
+.DS_Store
+.idea/
+
+# Логи и кэш
+*.log
+*.tmp
+
+# Зависимости Composer (если они устанавливаются на сервере)
+/vendor/
+
+# Файлы операционной системы
+Thumbs.db
+
+/config/*.php
+!/config/*.example.php
+/storage/*.key
+*.env.local
+
+# Дополнительная защита
+secrets.*
+*.secret
+docker-compose.override.yml

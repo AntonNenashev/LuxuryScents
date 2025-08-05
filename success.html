@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата успешна - Luxury Scents</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .success-icon {
+            color: #4CAF50;
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .success-text {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .back-to-shop {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-to-shop:hover {
+            background: var(--dark-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="page-header">
+        <div class="header-container">
+            <div class="header-logo">Luxury Scents</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="success-container">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="success-title">Оплата прошла успешно!</h1>
+            <p class="success-text">Спасибо за ваш заказ. Мы отправили подтверждение на вашу электронную почту.</p>
+
+            <div class="order-details">
+                <p><strong>Номер заказа:</strong> <span id="order-id">LS-<script>
+                            document.write(new Date().getTime())
+                        </script></span></p>
+                <p><strong>Дата:</strong> <span id="order-date">
+                        <script>
+                            document.write(new Date().toLocaleDateString())
+                        </script>
+                    </span></p>
+                <p><strong>Сумма:</strong> <span id="order-amount"></span></p>
+            </div>
+
+            <a href="index.html" class="back-to-shop">Вернуться в магазин</a>
+        </div>
+    </main>
+
+    <script>
+        // Очищаем корзину после успешной оплаты
+        localStorage.removeItem('cart');
+
+        // Можно добавить отправку данных в аналитику
+        if (window.ga) {
+            ga('send', 'event', 'Ecommerce', 'Purchase');
+        }
+    </script>
+</body>
+
+</html>

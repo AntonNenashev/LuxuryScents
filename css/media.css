@@ -8,7 +8,7 @@
 
 @media (max-width: 1772px) {
     .hero-section {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/img/hero-image-4.webp);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/hero-image-4.webp);
     }
 }
 
@@ -49,7 +49,7 @@
 
 @media (max-width: 895px) {
     .hero-section {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/img/hero-image-4.webp);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/hero-image-4.webp);
     }
 }
 

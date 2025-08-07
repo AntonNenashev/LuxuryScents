@@ -181,39 +181,44 @@
         padding: 20px;
     }
 
-    /* Бургер меню */
-    .burger-menu {
+    /* Бургер */
+    .burger-btn {
         display: flex;
     }
 
-    .header-nav {
+    .nav {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: var(--light-text);
-        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
-        transition: right 0.3s ease;
-        z-index: 1000;
-        padding: 80px 20px 20px;
-    }
-
-    .header-nav.active {
         right: 0;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background: #fff;
+        z-index: 999;
+        transform: translateX(100%);
+        flex-direction: column;
+        padding: 80px 20px 30px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
 
-    .nav-list {
+    .nav.active {
+        transform: translateX(0);
+    }
+
+    .nav__list {
         flex-direction: column;
         gap: 20px;
     }
 
-    .nav-item {
-        margin: 0;
+    .nav__link {
+        font-size: 18px;
+        display: block;
+        padding: 10px 0;
     }
 
-    .nav-link {
-        font-size: 18px;
+    /* Запрет прокрутки при открытом меню */
+    body.menu-open {
+        overflow: hidden;
     }
 
     /* Политика конфединциальности */
@@ -345,33 +350,6 @@
 
     .header-nav {
         width: 85%;
-    }
-
-    /* Бургер меню */
-    .burger-menu {
-        display: flex;
-    }
-
-    .header-nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: var(--light-text);
-        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
-        transition: right 0.3s ease;
-        z-index: 1000;
-        padding: 80px 20px 20px;
-    }
-
-    .header-nav.active {
-        right: 0;
-    }
-
-    .nav-list {
-        flex-direction: column;
-        gap: 20px;
     }
 
     /* О нас */

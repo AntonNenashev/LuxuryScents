@@ -337,37 +337,35 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Бургер-меню
-document.addEventListener('DOMContentLoaded', () => {
-    const burgerBtn = document.querySelector('.burger-btn');
-    const nav = document.querySelector('.nav');
-    const navOverlay = document.querySelector('.nav-overlay');
-    const navLinks = document.querySelectorAll('.nav__link');
+const burgerMenu = document.getElementById('burger-menu');
+const headerNav = document.getElementById('header-nav');
 
-    // Функция переключения меню
-    function toggleMenu() {
-        burgerBtn.classList.toggle('active');
-        nav.classList.toggle('active');
-        navOverlay.classList.toggle('active');
-        document.body.classList.toggle('no-scroll');
+burgerMenu.addEventListener('click', function () {
+    this.classList.toggle('active');
+    headerNav.classList.toggle('active');
+
+    // Блокировка скролла при открытом меню
+    if (headerNav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
     }
+});
 
-    // Обработчики событий
-    burgerBtn.addEventListener('click', toggleMenu);
-    navOverlay.addEventListener('click', toggleMenu);
-
-    // Закрытие меню при клике на ссылки
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (nav.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
+// Закрытие меню при клике на ссылку
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        burgerMenu.classList.remove('active');
+        headerNav.classList.remove('active');
+        document.body.style.overflow = 'auto';
     });
+});
 
-    // Закрытие при нажатии ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && nav.classList.contains('active')) {
-            toggleMenu();
-        }
-    });
+// Закрытие меню при клике вне его области
+document.addEventListener('click', (e) => {
+    if (!headerNav.contains(e.target) && !burgerMenu.contains(e.target)) {
+        burgerMenu.classList.remove('active');
+        headerNav.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
 });

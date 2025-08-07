@@ -336,36 +336,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Бургер-меню
-const burgerMenu = document.getElementById('burger-menu');
-const headerNav = document.getElementById('header-nav');
+// ========== БУРГЕР-МЕНЮ ========== //
+document.addEventListener('DOMContentLoaded', function () {
+    const burgerMenu = document.getElementById('burger-menu');
+    const headerNav = document.getElementById('header-nav');
+    const overlay = document.getElementById('overlay');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-burgerMenu.addEventListener('click', function () {
-    this.classList.toggle('active');
-    headerNav.classList.toggle('active');
-
-    // Блокировка скролла при открытом меню
-    if (headerNav.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Закрытие меню при клике на ссылку
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        burgerMenu.classList.remove('active');
-        headerNav.classList.remove('active');
-        document.body.style.overflow = 'auto';
+    burgerMenu.addEventListener('click', function () {
+        this.classList.toggle('active');
+        headerNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = headerNav.classList.contains('active') ? 'hidden' : '';
     });
-});
 
-// Закрытие меню при клике вне его области
-document.addEventListener('click', (e) => {
-    if (!headerNav.contains(e.target) && !burgerMenu.contains(e.target)) {
+    overlay.addEventListener('click', function () {
         burgerMenu.classList.remove('active');
         headerNav.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            burgerMenu.classList.remove('active');
+            headerNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
 });

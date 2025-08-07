@@ -665,6 +665,21 @@ body {
 }
 
 /* Бургер-меню */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 98;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
 .burger-menu {
     display: none;
     flex-direction: column;
@@ -684,9 +699,9 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Состояние открытого бургера */
+/* Состояние активного бургера */
 .burger-menu.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 
 .burger-menu.active span:nth-child(2) {
@@ -694,7 +709,7 @@ body {
 }
 
 .burger-menu.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* Политика конфединциальности */
@@ -702,6 +717,7 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 30px;
+    padding-top: 40px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -738,6 +754,7 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 30px;
+    padding-top: 40px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -774,6 +791,7 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 30px;
+    padding-top: 40px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -792,9 +810,11 @@ body {
 }
 
 .returns-list {
+    list-style-type: none;
     padding-left: 20px;
     margin: 15px 0;
 }
+
 
 .returns-list li {
     margin-bottom: 12px;
@@ -803,12 +823,21 @@ body {
 }
 
 .returns-list li:before {
-    content: "•";
+    content: "›";
     color: var(--primary-color);
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bold;
     position: absolute;
-    left: 0;
-    top: -2px;
+    left: -5px;
+    top: -6px;
+}
+
+.list {
+    padding-left: 10px;
+}
+
+.list li {
+    padding-left: 13px;
 }
 
 .warning-box {
@@ -839,11 +868,11 @@ body {
 }
 
 /* О нас */
-
 .about-container {
     max-width: 1000px;
     margin: 40px auto;
     padding: 30px;
+    padding-top: 40px;
 }
 
 .about-header {

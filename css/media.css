@@ -19,6 +19,7 @@
     .policy-container {
         max-width: 90%;
         padding: 25px;
+        padding-top: 40px;
         margin: 30px auto;
     }
 
@@ -30,6 +31,7 @@
     .terms-container {
         max-width: 90%;
         padding: 25px;
+        padding-top: 40px;
     }
 
     .terms-title {
@@ -40,6 +42,7 @@
     .returns-container {
         max-width: 90%;
         padding: 25px;
+        padding-top: 40px;
     }
 
     .returns-title {
@@ -104,6 +107,7 @@
 @media (max-width: 768px) {
     .page-header .header-container {
         padding: 15px;
+        padding-top: 40px;
     }
 
     .nav-list {
@@ -215,6 +219,7 @@
     /* Политика конфединциальности */
     .policy-container {
         padding: 20px;
+        padding-top: 80px;
         margin: 20px auto;
         box-shadow: none;
     }
@@ -227,6 +232,7 @@
     /* Условия пользования */
     .terms-container {
         padding: 20px;
+        padding-top: 60px;
         box-shadow: none;
     }
 
@@ -237,6 +243,7 @@
     /* Возврат и обмен  */
     .returns-container {
         padding: 20px;
+        padding-top: 60px;
         box-shadow: none;
     }
 
@@ -249,6 +256,10 @@
     }
 
     /* О нас */
+    .about-container {
+        padding-top: 60px;
+    }
+
     .about-title {
         font-size: 30px;
     }
@@ -337,15 +348,15 @@
     }
 
     /* Бургер меню */
-    .header-right {
-        gap: 15px;
+    .burger-menu {
+        display: flex;
     }
 
     .header-nav {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 85%;
+        width: 70%;
         height: 100vh;
         background-color: var(--light-text);
         box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
@@ -363,34 +374,12 @@
         gap: 20px;
     }
 
-    .nav-item {
-        margin: 0;
-    }
-
-    .nav-link {
-        font-size: 18px;
-    }
-
-    .header-cart {
-        order: 2;
-    }
-
-    .burger-menu span {
-        height: 2px;
-    }
-
-    .burger-menu.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .burger-menu.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
+    /* О нас */
     .team-grid {
         grid-template-columns: 1fr;
     }
 
+    /* Возврат и обмен */
     .return-step {
         flex-direction: column;
     }
@@ -402,6 +391,7 @@
     /* Политика конфединциальности */
     .policy-container {
         padding: 15px;
+        padding-top: 80px;
     }
 
     .policy-title {

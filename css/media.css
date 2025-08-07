@@ -348,15 +348,15 @@
     }
 
     /* Бургер меню */
-    .header-right {
-        gap: 15px;
+    .burger-btn {
+        display: flex;
     }
 
     .header-nav {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 85%;
+        width: 70%;
         height: 100vh;
         background-color: var(--light-text);
         box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
@@ -380,34 +380,7 @@
 
     .nav-link {
         font-size: 18px;
-    }
-
-    .header-cart {
-        order: 2;
-    }
-
-    .burger-menu span {
-        height: 2px;
-    }
-
-    .burger-menu.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .burger-menu.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .return-step {
-        flex-direction: column;
-    }
-
-    .step-number {
-        margin-bottom: 10px;
+        color: var(--text-color);
     }
 
     /* Политика конфединциальности */
@@ -438,10 +411,15 @@
         width: 22px;
         height: 22px;
         line-height: 22px;
+        margin-bottom: 10px;
     }
 
     .returns-list li:before {
         top: -3px;
+    }
+
+    .return-step {
+        flex-direction: column;
     }
 
     /* О нас */
@@ -455,6 +433,10 @@
 
     .about-section {
         margin-bottom: 40px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
     }
 }
 

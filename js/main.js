@@ -337,35 +337,35 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Бургер-меню
-const burgerMenu = document.getElementById('burger-menu');
+const burgerBtn = document.querySelector('.burger-btn');
 const headerNav = document.getElementById('header-nav');
+const navLinks = document.querySelectorAll('.nav-link');
 
-burgerMenu.addEventListener('click', function () {
+burgerBtn.addEventListener('click', function() {
+    // Переключаем класс active для бургер-кнопки
     this.classList.toggle('active');
+    // Переключаем класс active для навигации
     headerNav.classList.toggle('active');
-
-    // Блокировка скролла при открытом меню
-    if (headerNav.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'auto';
-    }
+    // Блокируем/разблокируем прокрутку страницы
+    document.body.classList.toggle('no-scroll');
 });
 
-// Закрытие меню при клике на ссылку
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        burgerMenu.classList.remove('active');
+// Закрываем меню при клике на ссылку
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        burgerBtn.classList.remove('active');
         headerNav.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        document.body.classList.remove('no-scroll');
     });
 });
 
-// Закрытие меню при клике вне его области
-document.addEventListener('click', (e) => {
-    if (!headerNav.contains(e.target) && !burgerMenu.contains(e.target)) {
-        burgerMenu.classList.remove('active');
-        headerNav.classList.remove('active');
-        document.body.style.overflow = 'auto';
+// Закрываем меню при клике вне его области
+document.addEventListener('click', function(e) {
+    if (!headerNav.contains(e.target) {
+        if (!burgerBtn.contains(e.target)) {
+            burgerBtn.classList.remove('active');
+            headerNav.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
     }
 });

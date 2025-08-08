@@ -361,11 +361,11 @@ navLinks.forEach(link => {
 
 // Закрываем меню при клике вне его области
 document.addEventListener('click', function(e) {
-    if (!headerNav.contains(e.target) {
-        if (!burgerBtn.contains(e.target)) {
-            burgerBtn.classList.remove('active');
-            headerNav.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        }
+    const isClickInsideMenu = headerNav.contains(e.target) || burgerBtn.contains(e.target);
+    
+    if (!isClickInsideMenu && headerNav.classList.contains('active')) {
+        burgerBtn.classList.remove('active');
+        headerNav.classList.remove('active');
+        document.body.classList.remove('no-scroll');
     }
 });

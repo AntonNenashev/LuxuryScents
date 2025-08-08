@@ -1177,3 +1177,126 @@ z
 .no-scroll {
     overflow: hidden;
 }
+
+.success-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 40px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.success-icon {
+    color: #4CAF50;
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.success-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.success-text {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.order-details {
+    background: var(--light-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.back-to-shop {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.back-to-shop:hover {
+    background: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+/* Успешная оплата */
+.success-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 40px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.success-icon {
+    color: #4CAF50;
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.success-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.success-text {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.order-details {
+    background: var(--light-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.ordered-items {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 8px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.order-item img {
+    border-radius: 3px;
+}
+
+.back-to-shop {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.back-to-shop:hover {
+    background: var(--dark-color);
+    transform: translateY(-2px);
+}

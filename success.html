@@ -6,58 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оплата успешна - Luxury Scents</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .success-container {
-            max-width: 600px;
-            margin: 100px auto;
-            padding: 40px;
-            text-align: center;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
 
-        .success-icon {
-            color: #4CAF50;
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .success-title {
-            font-size: 28px;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .success-text {
-            font-size: 18px;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .order-details {
-            background: var(--light-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-
-        .back-to-shop {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        .back-to-shop:hover {
-            background: var(--dark-color);
-            transform: translateY(-2px);
-        }
     </style>
 </head>
 
@@ -65,6 +17,30 @@
     <header class="page-header">
         <div class="header-container">
             <div class="header-logo">Luxury Scents</div>
+
+            <nav id="header-nav" class="header-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">О нас</a></li>
+                    <li class="nav-item"><a href="#footer-block" class="nav-link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right">
+
+                <button class="burger-btn" aria-label="Меню">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+
+                <div class="header-cart">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                    <span class="cart-counter">0</span>
+                </div>
+            </div>
+
         </div>
     </header>
 
@@ -77,15 +53,14 @@
             <p class="success-text">Спасибо за ваш заказ. Мы отправили подтверждение на вашу электронную почту.</p>
 
             <div class="order-details">
-                <p><strong>Номер заказа:</strong> <span id="order-id">LS-<script>
-                            document.write(new Date().getTime())
-                        </script></span></p>
-                <p><strong>Дата:</strong> <span id="order-date">
-                        <script>
-                            document.write(new Date().toLocaleDateString())
-                        </script>
-                    </span></p>
+                <p><strong>Номер заказа:</strong> LS-<span id="order-id"></span></p>
+                <p><strong>Дата:</strong> <span id="order-date"></span></p>
                 <p><strong>Сумма:</strong> <span id="order-amount"></span></p>
+
+                <div class="ordered-items">
+                    <h3>Ваши товары:</h3>
+                    <div id="order-items-list"></div>
+                </div>
             </div>
 
             <a href="index.html" class="back-to-shop">Вернуться в магазин</a>
@@ -93,14 +68,29 @@
     </main>
 
     <script>
-        // Очищаем корзину после успешной оплаты
-        localStorage.removeItem('cart');
+        // Отображение данных заказа
+        document.getElementById('order-id').textContent = Date.now().toString().slice(-6);
+        document.getElementById('order-date').textContent = new Date().toLocaleDateString();
+        document.getElementById('order-amount').textContent = localStorage.getItem('lastOrderAmount') || 'N/A ₽';
 
-        // Можно добавить отправку данных в аналитику
-        if (window.ga) {
-            ga('send', 'event', 'Ecommerce', 'Purchase');
-        }
+        // Вывод списка товаров
+        const orderItems = JSON.parse(localStorage.getItem('lastOrderItems') || [];
+                const itemsList = document.getElementById('order-items-list');
+
+                orderItems.forEach(item => {
+                    itemsList.innerHTML += `
+                <div class="order-item">
+                    <img src="${item.image}" alt="${item.name}" width="50">
+                    <span>${item.name} (${item.brand}) × ${item.quantity}</span>
+                </div>
+            `;
+                });
+
+                // Очистка данных заказа (кроме суммы для истории)
+                localStorage.removeItem('lastOrderItems');
     </script>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

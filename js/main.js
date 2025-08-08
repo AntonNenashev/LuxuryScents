@@ -262,6 +262,44 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 
+    // ========== ОПЛАТА И ПЕРЕНАПРАВЛЕНИЕ ========== //
+
+    checkoutBtn.addEventListener('click', async () => {
+        try {
+            // Показываем индикатор загрузки
+            checkoutBtn.disabled = true;
+            checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обработка...';
+
+            // 1. Сохраняем данные заказа перед перенаправлением
+            const orderData = {
+                items: cart,
+                total: cartTotalPrice.textContent,
+                date: new Date().toISOString(),
+                orderId: 'LS-' + Date.now().toString().slice(-6)
+            };
+
+            localStorage.setItem('lastOrder', JSON.stringify(orderData));
+            localStorage.setItem('lastOrderAmount', orderData.total);
+
+            // 2. Очищаем корзину
+            cart = [];
+            saveCartToStorage();
+            updateCartCount();
+            updateCartModal();
+
+            // 3. Перенаправляем на страницу успешной оплаты
+            window.location.href = 'success.html';
+
+        } catch (error) {
+            console.error("Ошибка оплаты:", error);
+            alert("Ошибка: " + error.message);
+
+            // Восстанавливаем кнопку
+            checkoutBtn.disabled = false;
+            checkoutBtn.innerHTML = 'Оформить заказ';
+        }
+    });
+
     // ========== ИНИЦИАЛИЗАЦИЯ ========== //
 
     // Первоначальная загрузка
@@ -292,29 +330,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto';
     });
 
-    checkoutBtn.addEventListener('click', async () => {
-        try {
-            // Показываем индикатор загрузки
-            checkoutBtn.disabled = true;
-            checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обработка...';
-
-            const paymentUrl = await checkout(cart);
-
-            // Сохраняем сумму заказа перед редиректом
-            localStorage.setItem('lastOrderAmount', cartTotalPrice.textContent);
-
-            window.location.href = paymentUrl;
-
-        } catch (error) {
-            console.error("Ошибка оплаты:", error);
-            alert("Ошибка: " + error.message);
-
-            // Восстанавливаем кнопку
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Оформить заказ';
-        }
-    });
-
     window.addEventListener('click', (event) => {
         if (event.target === productModal) {
             productModal.style.display = 'none';
@@ -336,12 +351,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Бургер-меню
+// ========== БУРГЕР МЕНЮ ========== //
+
 const burgerBtn = document.querySelector('.burger-btn');
 const headerNav = document.getElementById('header-nav');
 const navLinks = document.querySelectorAll('.nav-link');
 
-burgerBtn.addEventListener('click', function() {
+burgerBtn.addEventListener('click', function () {
     // Переключаем класс active для бургер-кнопки
     this.classList.toggle('active');
     // Переключаем класс active для навигации
@@ -352,7 +368,7 @@ burgerBtn.addEventListener('click', function() {
 
 // Закрываем меню при клике на ссылку
 navLinks.forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function () {
         burgerBtn.classList.remove('active');
         headerNav.classList.remove('active');
         document.body.classList.remove('no-scroll');
@@ -360,9 +376,9 @@ navLinks.forEach(link => {
 });
 
 // Закрываем меню при клике вне его области
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const isClickInsideMenu = headerNav.contains(e.target) || burgerBtn.contains(e.target);
-    
+
     if (!isClickInsideMenu && headerNav.classList.contains('active')) {
         burgerBtn.classList.remove('active');
         headerNav.classList.remove('active');

@@ -1,0 +1,29 @@
+/* Стили для избранного */
+.wishlist-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: all 0.3s ease;
+    padding: 5px;
+}
+
+.wishlist-btn i.fas {
+    color: #ff4757;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.1);
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.add-to-cart {
+    flex-grow: 1;
+    margin-right: 10px;
+}

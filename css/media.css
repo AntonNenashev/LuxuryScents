@@ -107,7 +107,6 @@
 @media (max-width: 768px) {
     .page-header .header-container {
         padding: 15px;
-        padding-top: 40px;
     }
 
     .nav-list {
@@ -246,7 +245,7 @@
         position: fixed;
         top: 0;
         right: -100%;
-        width: 70%;
+        width: 31%;
         height: 100vh;
         background-color: var(--light-text);
         box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
@@ -271,6 +270,34 @@
     .nav-link {
         font-size: 18px;
         color: var(--text-color);
+    }
+
+    /* Успешная оплата */
+    .success-container {
+        margin: 90px auto;
+        padding: 30px;
+        width: 90%;
+    }
+
+    .success-icon {
+        font-size: 60px;
+    }
+
+    .success-title {
+        font-size: 24px;
+    }
+
+    .success-text {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .order-details {
+        padding: 15px;
+    }
+
+    .back-to-shop {
+        padding: 10px 25px;
     }
 }
 
@@ -402,6 +429,42 @@
 
     .team-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Успешная оплата */
+    .success-container {
+        padding: 20px;
+    }
+
+    .success-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .success-title {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .order-details {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .order-item img {
+        width: 40px;
+    }
+
+    .back-to-shop {
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -541,11 +604,72 @@
     .footer-links a {
         font-size: 12px;
     }
+
+    /* Успешная оплата */
+    .success-container {
+        padding: 15px;
+    }
+
+    .success-icon {
+        font-size: 40px;
+    }
+
+    .success-title {
+        font-size: 20px;
+    }
+
+    .success-text {
+        font-size: 15px;
+    }
+
+    .ordered-items h3 {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 300px) {
     .hero-section {
         height: 200px;
+    }
+
+    .header-logo {
+        font-size: 12px;
+    }
+
+    .header-right {
+        gap: 10px;
+    }
+
+    .burger-btn {
+        width: 20px;
+        height: 16px;
+    }
+
+    /* Успешная оплата */
+    .success-icon {
+        font-size: 35px;
+    }
+
+    .success-title {
+        font-size: 14px;
+    }
+
+    .success-text {
+        font-size: 12px;
+    }
+
+    .ordered-items h3 {
+        font-size: 11px;
+    }
+
+    .back-to-shop {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+    .order-details {
+        padding: 10px;
+        font-size: 11px;
     }
 }
 

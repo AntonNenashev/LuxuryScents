@@ -73,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Корзина (с возможностью сохранения в localStorage)
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+    // Избранное (с возможностью сохранения в localStorage)
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
     // Элементы DOM
     const productsGrid = document.getElementById('products-grid');
     const cartCounter = document.querySelector('.cart-counter');
@@ -100,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayProducts() {
         productsGrid.innerHTML = '';
         products.forEach(product => {
+            const isInWishlist = wishlist.includes(product.id);
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
             productCard.innerHTML = `
@@ -108,19 +112,73 @@ document.addEventListener('DOMContentLoaded', function () {
                     <h3 class="product-title">${product.name}</h3>
                     <p class="product-brand">${product.brand}</p>
                     <p class="product-price">${product.price}</p>
-                    <button class="product-button" data-id="${product.id}">Подробнее</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart" data-id="${product.id}">В корзину</button>
+                        <button class="wishlist-btn" data-id="${product.id}">
+                            <i class="${isInWishlist ? 'fas' : 'far'} fa-heart"></i>
+                        </button>
+                    </div>
                 </div>
             `;
             productsGrid.appendChild(productCard);
         });
 
-        // Назначение обработчиков
+        // Назначение обработчиков для кнопок "Подробнее"
         document.querySelectorAll('.product-button').forEach(btn => {
             btn.addEventListener('click', function () {
                 const productId = parseInt(this.getAttribute('data-id'));
                 showProductDetails(productId);
             });
         });
+
+        // Назначение обработчиков для кнопок "В корзину"
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const productId = parseInt(this.getAttribute('data-id'));
+                addToCart(productId);
+
+                // Анимация добавления
+                this.textContent = 'Добавлено!';
+                setTimeout(() => {
+                    this.textContent = 'В корзину';
+                }, 1000);
+            });
+        });
+
+        // Назначение обработчиков для кнопок "Избранное"
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const productId = parseInt(this.getAttribute('data-id'));
+                toggleWishlist(productId, this);
+            });
+        });
+    }
+
+    // Переключение избранного
+    function toggleWishlist(productId, button) {
+        const icon = button.querySelector('i');
+        const index = wishlist.indexOf(productId);
+
+        if (index === -1) {
+            // Добавляем в избранное
+            wishlist.push(productId);
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            // Удаляем из избранного
+            wishlist.splice(index, 1);
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+
+        // Сохраняем в localStorage
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+        // Анимация
+        button.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            button.style.transform = 'scale(1)';
+        }, 300);
     }
 
     // Показать детали товара
@@ -270,25 +328,12 @@ document.addEventListener('DOMContentLoaded', function () {
             checkoutBtn.disabled = true;
             checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обработка...';
 
-            // 1. Сохраняем данные заказа перед перенаправлением
-            const orderData = {
-                items: cart,
-                total: cartTotalPrice.textContent,
-                date: new Date().toISOString(),
-                orderId: 'LS-' + Date.now().toString().slice(-6)
-            };
+            const paymentUrl = await checkout(cart);
 
-            localStorage.setItem('lastOrder', JSON.stringify(orderData));
-            localStorage.setItem('lastOrderAmount', orderData.total);
+            // Сохраняем сумму заказа перед редиректом
+            localStorage.setItem('lastOrderAmount', cartTotalPrice.textContent);
 
-            // 2. Очищаем корзину
-            cart = [];
-            saveCartToStorage();
-            updateCartCount();
-            updateCartModal();
-
-            // 3. Перенаправляем на страницу успешной оплаты
-            window.location.href = 'success.html';
+            window.location.href = paymentUrl;
 
         } catch (error) {
             console.error("Ошибка оплаты:", error);
@@ -296,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Восстанавливаем кнопку
             checkoutBtn.disabled = false;
-            checkoutBtn.innerHTML = 'Оформить заказ';
+            checkoutBtn.textContent = 'Оформить заказ';
         }
     });
 

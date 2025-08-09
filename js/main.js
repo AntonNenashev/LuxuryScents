@@ -2,81 +2,79 @@ import {
     checkout
 } from './payment.js';
 
+// Глобальные переменные для корзины и избранного
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+// Данные о товарах
+const products = [{
+        id: 1,
+        name: "Chanel №5",
+        brand: "Chanel",
+        price: "12 990 ₽",
+        image: "img/products/Chanel+No5.jpg",
+        description: "Классический женский аромат с нотами иланг-иланга, нероли и ванили. Символ элегантности и изысканности."
+    },
+    {
+        id: 2,
+        name: "Sauvage",
+        brand: "Dior",
+        price: "10 490 ₽",
+        image: "img/products/Dior+Sauvage.webp",
+        description: "Мужской аромат с свежими нотами бергамота и пряными аккордами. Для уверенных и харизматичных."
+    },
+    {
+        id: 3,
+        name: "Bloom",
+        brand: "Gucci",
+        price: "9 990 ₽",
+        image: "img/products/Gucci+Bloom.webp",
+        description: "Цветочный женский парфюм с нотами жасмина и туберозы. Нежный и романтичный аромат."
+    },
+    {
+        id: 4,
+        name: "Black Orchid",
+        brand: "Tom Ford",
+        price: "15 990 ₽",
+        image: "img/products/Tom+Ford+Black+Orchid.jpg",
+        description: "Роскошный унисекс аромат с нотами черной трюфели, ванили и пачули. Загадочный и чувственный."
+    },
+    {
+        id: 5,
+        name: "Eros",
+        brand: "Versace",
+        price: "8 990 ₽",
+        image: "img/products/Versace+Eros.jpg",
+        description: "Соблазнительный мужской аромат с нотами мяты, ванили и древесными аккордами. Для страстных натур."
+    },
+    {
+        id: 6,
+        name: "J'adore",
+        brand: "Dior",
+        price: "11 490 ₽",
+        image: "img/products/Dior+J'adore.webp",
+        description: "Изысканный женский парфюм с нотами жасмина, розы и ванили. Воплощение женственности."
+    },
+    {
+        id: 7,
+        name: "Light Blue",
+        brand: "Dolce&Gabbana",
+        price: "9 790 ₽",
+        image: "img/products/Dolce+Gabbana+Light+Blue.webp",
+        description: "Свежий цветочно-фруктовый аромат с нотами яблока, лимона, жасмина и бамбука. Идеален для лета."
+    },
+    {
+        id: 8,
+        name: "La Vie Est Belle",
+        brand: "Lancôme",
+        price: "13 290 ₽",
+        image: "img/products/Lancome+La+Vie+Est+Belle.jpg",
+        description: "Сладкий женский парфюм с нотами ириса, пачули и карамели. Аромат счастья и радости жизни."
+    }
+];
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Данные о товарах
-    const products = [{
-            id: 1,
-            name: "Chanel №5",
-            brand: "Chanel",
-            price: "12 990 ₽",
-            image: "img/products/Chanel+No5.jpg",
-            description: "Классический женский аромат с нотами иланг-иланга, нероли и ванили. Символ элегантности и изысканности."
-        },
-        {
-            id: 2,
-            name: "Sauvage",
-            brand: "Dior",
-            price: "10 490 ₽",
-            image: "img/products/Dior+Sauvage.webp",
-            description: "Мужской аромат с свежими нотами бергамота и пряными аккордами. Для уверенных и харизматичных."
-        },
-        {
-            id: 3,
-            name: "Bloom",
-            brand: "Gucci",
-            price: "9 990 ₽",
-            image: "img/products/Gucci+Bloom.webp",
-            description: "Цветочный женский парфюм с нотами жасмина и туберозы. Нежный и романтичный аромат."
-        },
-        {
-            id: 4,
-            name: "Black Orchid",
-            brand: "Tom Ford",
-            price: "15 990 ₽",
-            image: "img/products/Tom+Ford+Black+Orchid.jpg",
-            description: "Роскошный унисекс аромат с нотами черной трюфели, ванили и пачули. Загадочный и чувственный."
-        },
-        {
-            id: 5,
-            name: "Eros",
-            brand: "Versace",
-            price: "8 990 ₽",
-            image: "img/products/Versace+Eros.jpg",
-            description: "Соблазнительный мужской аромат с нотами мяты, ванили и древесными аккордами. Для страстных натур."
-        },
-        {
-            id: 6,
-            name: "J'adore",
-            brand: "Dior",
-            price: "11 490 ₽",
-            image: "img/products/Dior+J'adore.webp",
-            description: "Изысканный женский парфюм с нотами жасмина, розы и ванили. Воплощение женственности."
-        },
-        {
-            id: 7,
-            name: "Light Blue",
-            brand: "Dolce&Gabbana",
-            price: "9 790 ₽",
-            image: "img/products/Dolce+Gabbana+Light+Blue.webp",
-            description: "Свежий цветочно-фруктовый аромат с нотами яблока, лимона, жасмина и бамбука. Идеален для лета."
-        },
-        {
-            id: 8,
-            name: "La Vie Est Belle",
-            brand: "Lancôme",
-            price: "13 290 ₽",
-            image: "img/products/Lancome+La+Vie+Est+Belle.jpg",
-            description: "Сладкий женский парфюм с нотами ириса, пачули и карамели. Аромат счастья и радости жизни."
-        }
-    ];
-
-    // Корзина (с возможностью сохранения в localStorage)
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Избранное (с возможностью сохранения в localStorage)
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-    // Элементы DOM
+    // Инициализация элементов DOM
     const productsGrid = document.getElementById('products-grid');
     const cartCounter = document.querySelector('.cart-counter');
     const productModal = document.getElementById('product-modal');
@@ -89,8 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
         image: document.getElementById('modal-product-image'),
         addToCart: document.getElementById('modal-add-to-cart')
     };
-
-    // Элементы корзины
     const cartModal = document.getElementById('cart-modal');
     const cartItemsContainer = document.getElementById('cart-items');
     const cartTotalPrice = document.getElementById('cart-total-price');
@@ -99,8 +95,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ========== ОСНОВНЫЕ ФУНКЦИИ ========== //
 
-    // Отображение товаров
+    // Отображение товаров (для главной страницы)
     function displayProducts() {
+        if (!productsGrid) return;
+
         productsGrid.innerHTML = '';
         products.forEach(product => {
             const isInWishlist = wishlist.includes(product.id);
@@ -122,88 +120,55 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             productsGrid.appendChild(productCard);
         });
+    }
 
-        // Назначение обработчиков для кнопок "Подробнее"
-        document.querySelectorAll('.product-button').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const productId = parseInt(this.getAttribute('data-id'));
-                showProductDetails(productId);
-            });
-        });
-
-        // Назначение обработчиков для кнопок "В корзину"
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const productId = parseInt(this.getAttribute('data-id'));
-                addToCart(productId);
-
-                // Анимация добавления
-                this.textContent = 'Добавлено!';
-                setTimeout(() => {
-                    this.textContent = 'В корзину';
-                }, 1000);
-            });
-        });
-
-        // Назначение обработчиков для кнопок "Избранное"
+    // Инициализация кнопок избранного
+    function initWishlistButtons() {
         document.querySelectorAll('.wishlist-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const productId = parseInt(this.getAttribute('data-id'));
-                toggleWishlist(productId, this);
-            });
+            const productId = parseInt(btn.dataset.id);
+            const icon = btn.querySelector('i');
+
+            if (wishlist.includes(productId)) {
+                icon.className = 'fas fa-heart';
+                icon.style.color = '#ff4444';
+            }
         });
     }
 
     // Переключение избранного
-    function toggleWishlist(productId, button) {
-        const icon = button.querySelector('i');
+    function toggleWishlist(productId, button = null) {
         const index = wishlist.indexOf(productId);
 
         if (index === -1) {
-            // Добавляем в избранное
             wishlist.push(productId);
-            icon.classList.remove('far');
-            icon.classList.add('fas');
         } else {
-            // Удаляем из избранного
             wishlist.splice(index, 1);
-            icon.classList.remove('fas');
-            icon.classList.add('far');
         }
 
-        // Сохраняем в localStorage
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
-        // Анимация
-        button.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            button.style.transform = 'scale(1)';
-        }, 300);
-    }
+        if (button) {
+            const icon = button.querySelector('i');
+            if (wishlist.includes(productId)) {
+                icon.className = 'fas fa-heart';
+                icon.style.color = '#ff4444';
+            } else {
+                icon.className = 'far fa-heart';
+                icon.style.color = '';
+            }
 
-    // Показать детали товара
-    function showProductDetails(productId) {
-        const product = products.find(p => p.id === productId);
-        if (product) {
-            modalElements.name.textContent = product.name;
-            modalElements.brand.textContent = product.brand;
-            modalElements.price.textContent = product.price;
-            modalElements.description.textContent = product.description;
-            modalElements.image.src = product.image;
-            modalElements.image.alt = product.name;
-            modalElements.addToCart.setAttribute('data-id', product.id);
-
-            productModal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Анимация
+            button.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 300);
         }
     }
 
-    // ========== ФУНКЦИИ КОРЗИНЫ ========== //
-
-    // Добавить в корзину
-    function addToCart(productId) {
+    // Добавление в корзину
+    function addToCart(productId, button = null) {
         const product = products.find(p => p.id === productId);
-        if (!product) return;
+        if (!product) return false;
 
         const existingItem = cart.find(item => item.id === productId);
         if (existingItem) {
@@ -215,18 +180,48 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
-        saveCartToStorage();
+
+        if (button) {
+            // Анимация для кнопки
+            const originalText = button.textContent;
+            button.textContent = 'Добавлено!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 1000);
+        }
+
+        return true;
     }
 
-    // Обновить счетчик корзины
+    // Обновление счетчика корзины
     function updateCartCount() {
         const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        cartCounter.textContent = totalItems;
+        if (cartCounter) cartCounter.textContent = totalItems;
     }
 
-    // Обновить модальное окно корзины
+    // Показать детали товара
+    function showProductDetails(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product || !productModal) return;
+
+        modalElements.name.textContent = product.name;
+        modalElements.brand.textContent = product.brand;
+        modalElements.price.textContent = product.price;
+        modalElements.description.textContent = product.description;
+        modalElements.image.src = product.image;
+        modalElements.image.alt = product.name;
+        modalElements.addToCart.setAttribute('data-id', product.id);
+
+        productModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Обновление модального окна корзины
     function updateCartModal() {
+        if (!cartItemsContainer || !cartTotalPrice) return;
+
         cartItemsContainer.innerHTML = '';
 
         if (cart.length === 0) {
@@ -290,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Изменить количество товара
+    // Изменение количества товара
     function updateQuantity(index, change) {
         if (cart[index]) {
             cart[index].quantity += change;
@@ -305,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Удалить товар из корзины
+    // Удаление товара из корзины
     function removeFromCart(index) {
         if (cart[index]) {
             cart.splice(index, 1);
@@ -315,72 +310,99 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Сохранить корзину в localStorage
+    // Сохранение корзины
     function saveCartToStorage() {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    // ========== ОПЛАТА И ПЕРЕНАПРАВЛЕНИЕ ========== //
+    // ========== ОБРАБОТЧИКИ СОБЫТИЙ ========== //
 
-    checkoutBtn.addEventListener('click', async () => {
-        try {
-            // Показываем индикатор загрузки
-            checkoutBtn.disabled = true;
-            checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обработка...';
+    // Глобальные обработчики для кнопок
+    document.addEventListener('click', function (e) {
+        // Обработка избранного
+        if (e.target.closest('.wishlist-btn')) {
+            const btn = e.target.closest('.wishlist-btn');
+            const productId = parseInt(btn.dataset.id);
+            toggleWishlist(productId, btn);
+        }
 
-            const paymentUrl = await checkout(cart);
-
-            // Сохраняем сумму заказа перед редиректом
-            localStorage.setItem('lastOrderAmount', cartTotalPrice.textContent);
-
-            window.location.href = paymentUrl;
-
-        } catch (error) {
-            console.error("Ошибка оплаты:", error);
-            alert("Ошибка: " + error.message);
-
-            // Восстанавливаем кнопку
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Оформить заказ';
+        // Обработка добавления в корзину
+        if (e.target.closest('.add-to-cart')) {
+            const btn = e.target.closest('.add-to-cart');
+            const productId = parseInt(btn.dataset.id);
+            addToCart(productId, btn);
         }
     });
 
-    // ========== ИНИЦИАЛИЗАЦИЯ ========== //
+    // Обработка модального окна товара
+    if (modalElements.addToCart) {
+        modalElements.addToCart.addEventListener('click', function () {
+            const productId = parseInt(this.getAttribute('data-id'));
+            addToCart(productId, this);
+            if (productModal) {
+                productModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
 
-    // Первоначальная загрузка
-    displayProducts();
-    updateCartCount();
+    // Обработка корзины
+    if (document.querySelector('.header-cart')) {
+        document.querySelector('.header-cart').addEventListener('click', () => {
+            updateCartModal();
+            if (cartModal) {
+                cartModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
 
-    // Обработчики событий
-    closeModal.addEventListener('click', () => {
-        productModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    });
+    // Закрытие модальных окон
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            if (productModal) {
+                productModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
 
-    modalElements.addToCart.addEventListener('click', function () {
-        const productId = parseInt(this.getAttribute('data-id'));
-        addToCart(productId);
-        productModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    });
+    if (cartClose) {
+        cartClose.addEventListener('click', () => {
+            if (cartModal) {
+                cartModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
 
-    document.querySelector('.header-cart').addEventListener('click', () => {
-        updateCartModal();
-        cartModal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    });
+    // Обработка оплаты
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', async function () {
+            try {
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обработка...';
 
-    cartClose.addEventListener('click', () => {
-        cartModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    });
+                const paymentUrl = await checkout(cart);
+                localStorage.setItem('lastOrderAmount', cartTotalPrice.textContent);
+                window.location.href = paymentUrl;
 
+            } catch (error) {
+                console.error("Ошибка оплаты:", error);
+                alert("Ошибка: " + error.message);
+                this.disabled = false;
+                this.textContent = 'Оформить заказ';
+            }
+        });
+    }
+
+    // Закрытие по клику вне области
     window.addEventListener('click', (event) => {
-        if (event.target === productModal) {
+        if (productModal && event.target === productModal) {
             productModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        if (event.target === cartModal) {
+        if (cartModal && event.target === cartModal) {
             cartModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
@@ -389,44 +411,44 @@ document.addEventListener('DOMContentLoaded', function () {
     // Закрытие по ESC
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
-            productModal.style.display = 'none';
-            cartModal.style.display = 'none';
+            if (productModal) productModal.style.display = 'none';
+            if (cartModal) cartModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
     });
+
+    // Инициализация
+    displayProducts();
+    initWishlistButtons();
+    updateCartCount();
 });
 
 // ========== БУРГЕР МЕНЮ ========== //
-
 const burgerBtn = document.querySelector('.burger-btn');
 const headerNav = document.getElementById('header-nav');
 const navLinks = document.querySelectorAll('.nav-link');
 
-burgerBtn.addEventListener('click', function () {
-    // Переключаем класс active для бургер-кнопки
-    this.classList.toggle('active');
-    // Переключаем класс active для навигации
-    headerNav.classList.toggle('active');
-    // Блокируем/разблокируем прокрутку страницы
-    document.body.classList.toggle('no-scroll');
-});
-
-// Закрываем меню при клике на ссылку
-navLinks.forEach(link => {
-    link.addEventListener('click', function () {
-        burgerBtn.classList.remove('active');
-        headerNav.classList.remove('active');
-        document.body.classList.remove('no-scroll');
+if (burgerBtn && headerNav) {
+    burgerBtn.addEventListener('click', function () {
+        this.classList.toggle('active');
+        headerNav.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
     });
-});
 
-// Закрываем меню при клике вне его области
-document.addEventListener('click', function (e) {
-    const isClickInsideMenu = headerNav.contains(e.target) || burgerBtn.contains(e.target);
+    navLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            burgerBtn.classList.remove('active');
+            headerNav.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    });
 
-    if (!isClickInsideMenu && headerNav.classList.contains('active')) {
-        burgerBtn.classList.remove('active');
-        headerNav.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-    }
-});
+    document.addEventListener('click', function (e) {
+        const isClickInsideMenu = headerNav.contains(e.target) || burgerBtn.contains(e.target);
+        if (!isClickInsideMenu && headerNav.classList.contains('active')) {
+            burgerBtn.classList.remove('active');
+            headerNav.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+    });
+}
